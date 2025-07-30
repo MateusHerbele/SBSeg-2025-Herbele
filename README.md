@@ -1,3 +1,5 @@
+# Este artefato prove um ambiente de simulação para o Micro Sec traffic
+
 # MicroSec Traffic: Utilizando Estratégias de Engenharia de Tráfego para Aprimoramento da Eficiência de Sistemas de Detecção de Intrusão
 
 Este trabalho propõe o MicroSec Traffic, uma abordagem para melhorar a eficiência de soluções IDS tradicionais baseadas em assinaturas e anomalias definidas por regras, por meio da redução da carga de dados do tráfego de rede, sem comprometer a detecção de ameaças. A técnica não exige modificações nas ferramentas IDS, como Snort ou Suricata, apenas ajustes nas regras utilizadas. Avaliada em um cenário controlado com o Snort, a abordagem demonstrou ser efetiva ao manter a geração de alertas com menor tempo de processamento e volume de dados.
@@ -116,3 +118,108 @@ editcap -c 1000000 SBSeg-2025-Herbele/datasets/microsec/microsec.pcap SBSeg-2025
 editcap -c 1000000 SBSeg-2025-Herbele/datasets/original/Wednesday-workingHours.pcap SBSeg-2025-Herbele/datasets/original/chunks
 ```
 
+### Rodando o container
+```
+docker run -d --name snort-container snort3-docker
+```
+
+### Enviando para o contâiner os dados necessários
+```
+sudo docker cp SBSeg-2025-Herbele/datasets/microsec/* snort-container:/usr/src/datasets/microsec/
+
+sudo docker cp SBSeg-2025-Herbele/datasets/original/* snort-container:/usr/src/datasets/original/
+```
+
+### Enviando para o contâiner as regras
+```
+sudo docker cp SBSeg-2025-Herbele/rules/* snort-container:/usr/src/rules
+```
+
+### Entrando no contâiner
+```
+sudo docker exec -it snort-docker /bin/bash
+```
+
+### Acessando o snort (estando dentro do contâiner)
+```
+cd /usr/src/snort3/lua
+```
+### Executando o snort
+```
+snort --daq pcap -R [rota para o arquivo de regras que serão usadas] -r [rota do pcap que será analisado] -A cmg > [rota para o log de saída]
+
+```
+Existem 4 cenários de execução:
+    1. Executar o snort com as regras específicas para o pcap original junto do mesmo;
+    2. Executar o snort com as regras específicas para o pcap processado pelo microsec junto do mesmo;
+    3. Executar o snort com as regras específicas para o pcap original para cada chunk gerado a partir do pcap original;
+    4. Executar o snort com as regras específicas para o pcap processado pelo microsec para cada chunk gerado a partir do pcap processado pelo microsec.
+
+Devem ser feitas 10 execuções por cenário, para que seja possível avaliar a média e ter uma noção mais vasta da eficiência da técnica. Deve-se utilizar numerações de 0 a 9 para as execuções.
+
+### Executando o cenário 1:
+```
+snort --daq pcap -R /usr/src/rules/original.rules -r /usr/src/datasets/original/Wednesday-workingHours.pcap -A cmg > /usr/src/logs/original-[número da execução].txt
+```
+
+### Executando o cenário 2:
+```
+snort --daq pcap -R /usr/src/rules/microsec.rules -r /usr/src/datasets/microsec/microsec.pcap -A cmg > /usr/src/logs/microsec-[número da execução].txt
+```
+
+### Executando o cenário 3:
+```
+snort --daq pcap -R /usr/src/rules/original.rules -r /usr/src/datasets/original/chunks/original-[numero do chunk].pcap -A cmg > /usr/src/logs/original/chunks/[número da execução]/original-[numero do chunk].txt
+[...]
+```
+
+### Executando o cenário 4:
+```
+snort --daq pcap -R /usr/src/rules/microsec.rules -r /usr/src/datasets/microsec/chunks/microsec-[numero do chunk].pcap -A cmg > /usr/src/logs/microsec/chunks/[número da execução]/microsec-[numero do chunk].txt
+[...]
+```
+
+### Fazer uma cópia dos logs para fora do contâiner:
+Sair do contâiner com: 
+    Ctrl + P + Q
+
+Voltando para a máquina host, deve ser executado:
+```
+docker cp snort-container:/usr/src/logs/microsec/* /SBSeg-2025-Herbele/logs/microsec
+
+docker cp snort-container:/usr/src/logs/original/* /SBSeg-2025-Herbele/logs/original
+```
+### Avaliando o resultado dos cenários 1 e 2:
+Deve-se ir até o diretório scripts:
+```
+cd /SBSeg-2025-Herbele/scripts
+```
+
+Deve-se executar o script cenario-1.sh para avaliar o cenário 1:
+```
+./cenario-1.sh
+```
+Deve-se executar o script cenario-2.sh para avaliar o cenário 2:
+```
+./cenario-2.sh
+```
+Será imprimido no terminal as informaçõpes individuais dos pacotes e da média entre esses mesmos valores entre todos eles.
+Então serão mostrado informações para a análise como o tempo de execução e o número de alertas.
+
+### Rodando scripts para a avaliação dos logs dos chunks:
+
+Deve-se ir até o diretório scripts:
+```
+cd /SBSeg-2025-Herbele/scripts
+```
+
+Deve-se executar o script cenario-3.sh para avaliar o cenário 1:
+```
+./cenario-3.sh
+```
+Deve-se executar o script cenario-4.sh para avaliar o cenário 2:
+```
+./cenario-4.sh
+```
+Será imprimido no terminal as informaçõpes individuais dos pacotes e da média entre esses mesmos valores entre todos eles.
+Então serão mostrado informações para a análise como o tempo de execução e o número de alertas.

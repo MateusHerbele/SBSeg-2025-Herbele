@@ -40,8 +40,7 @@ RUN apt-get update && apt-get install -y \
 
 
 # Criar diretórios para datasets e regras
-RUN mkdir -p /usr/src/datasets/original/chunks /usr/src/datasets/microsec/chunks /usr/src/rules/original /usr/src/rules/microsec
-
+RUN mkdir -p /usr/src/datasets/original/chunks /usr/src/datasets/microsec/chunks /usr/src/rules/ /usr/src/logs/microsec/chunks /usr/src/logs/original/chunks 
 # Compilar o libdaq a partir do código-fonte
 WORKDIR /usr/src
 RUN git clone https://github.com/snort3/libdaq.git && \
