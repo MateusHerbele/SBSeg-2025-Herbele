@@ -258,3 +258,7 @@ Deve-se executar o script cenario-4.sh para avaliar o cenário 2:
 Serão impressas no terminal as informações de execução e da média entre esses mesmos valores entre todos os chunks ao longo de cada execução.
 
 Então será mostrado, na execução do script de cada cenário, informações importantes para a análise como o tempo de execução e o número de alertas.
+
+## LICENSE
+
+GNU GPL v3
