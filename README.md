@@ -60,6 +60,8 @@ SBSeg-2025-Herbele
     * SO: Debian GNU/Linux 12 (bookworm)
 ### Software
     * Docker - versão 28.0.2
+    * Wireshark - versão 4.0.17
+    * Python - versão 3.12
 
 ## Dependências
 
