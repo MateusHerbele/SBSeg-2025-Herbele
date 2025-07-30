@@ -11,14 +11,41 @@ Este trabalho propõe o MicroSec Traffic, uma abordagem para melhorar a eficiên
 * [Informações básicas](#informações-básicas)
     * [Hardware](#hardware)
     * [Software](#software)
-* [Dependêcnias](#dependências)
+* [Dependências](#dependências)
 * [Instalação](#instalação)
 * [Dataset](#dataset)
-* [Teste mínimo](#teste-mínimo)
-* [Experimentos](#experimentos) 
+* [Experimento](#experimentos) 
 * [LICENSE](#license)
 
 ### Estrutura do repositório
+
+```bash
+SBSeg-2025-Herbele
+├── datasets
+│   ├── microsec
+│   │   └── chunks
+│   └── original
+│       └── chunks
+├── docker
+│   └── Dockerfile
+├── logs
+│   ├── microsec
+│   │   └── chunks
+│   └── original
+│       └── chunks
+├── README.md
+├── rules
+│   ├── microsec-pcap.rules
+│   └── original-pcap.rules
+└── scripts
+    ├── cenario-1.sh
+    ├── cenario-2.sh
+    ├── cenario-3.sh
+    ├── cenario-4.sh
+    ├── micro-sec.py
+    └── requirements.txt
+
+```
 
 ### Definição dos diretórios
 
@@ -83,18 +110,24 @@ python -m venv "nome do ambiente"
 ```
 #### Ativando o ambiente criado
 ```
-source "nome do ambiente"/bin/source
+source "nome do ambiente"/bin/activate
 ```
 #### Navegue até o diretório 'scripts' do projeto e instale os requisitos:
 ```
 cd SBSeg-2025-Herbele/scripts
 pip install -r requirements.txt
 ```
+### Editcap
+Será importante para a geração dos chunks dos datasets.
+```
+sudo apt install wireshark
+```
+
 
 ## Acesso ao dataset
 Não é possível disponibilizar o dataset original nesse repositório em razões de direitos dos criadores do dataset e questões de limitação de tamanho de arquivos do próprio GitHub. Em razão disso, as explicações seguintes ensinam como ter acesso.
 
-Para ter acesso ao dataset utilizado neste projeto é preciso acessar [CIC-IDS-2017](https://www.unb.ca/cic/datasets/ids-2017.html). Após acessar, há presente toda informação sobre o dataset, e para dowload é necessário ir ao final da página e clicar em "Dowload this dataset" e seguir as instruções até que seja liberado a página de dowload para "Wednesday-workingHours.pcap", que será o conjunto de dados usadols no experimento.
+Para ter acesso ao dataset utilizado neste projeto é preciso acessar [CIC-IDS-2017](https://www.unb.ca/cic/datasets/ids-2017.html). Após acessar, há presente toda informações sobre o dataset, e para download é necessário ir ao final da página e clicar em "Download this dataset" e seguir as instruções até que seja liberado a página de download para "Wednesday-workingHours.pcap", que será o conjunto de dados usados no experimento.
 
 ## Dataset processado
 Também é possível ter acesso ao dataset já processado pelos scripts em python em [link para a minha página do dinf]()
@@ -105,17 +138,18 @@ Ambos os datasets devem estar de preferência na rota "SBSeg-2025-Herbele/datase
 ## Experimento
 
 ### Gerando o dataset cortado
-A primeira etapa é a geração do dataset processado pela estratégia de MicroSec Traffic, assim, com o ambiente python ativado deve-se executar:
+A primeira etapa é a geração do dataset processado pela estratégia de MicroSec Traffic, assim, com o ambiente python ativado deve-se ir até SBSeg-2025-Herbele/scripts e executar:
 ```
+cd SBSeg-2025-Herbele/scripts
 python microsec.py
 ```
 Após a execução do script, você deverá ter o pcap com um pacotes processados devidamente seguindo a estratégia.
 
 ### Gerando os chunks
 ```
-editcap -c 1000000 SBSeg-2025-Herbele/datasets/microsec/microsec.pcap SBSeg-2025-Herbele/datasets/microsec/chunks
+editcap -c 1000000 SBSeg-2025-Herbele/datasets/microsec/microsec.pcap SBSeg-2025-Herbele/datasets/microsec/chunks/microsec-%d.pcap
 
-editcap -c 1000000 SBSeg-2025-Herbele/datasets/original/Wednesday-workingHours.pcap SBSeg-2025-Herbele/datasets/original/chunks
+editcap -c 1000000 SBSeg-2025-Herbele/datasets/original/Wednesday-workingHours.pcap SBSeg-2025-Herbele/datasets/original/chunks/original-%d.pcap
 ```
 
 ### Rodando o container
@@ -137,7 +171,7 @@ sudo docker cp SBSeg-2025-Herbele/rules/* snort-container:/usr/src/rules
 
 ### Entrando no contâiner
 ```
-sudo docker exec -it snort-docker /bin/bash
+sudo docker exec -it snort-container /bin/bash
 ```
 
 ### Acessando o snort (estando dentro do contâiner)
@@ -203,8 +237,8 @@ Deve-se executar o script cenario-2.sh para avaliar o cenário 2:
 ```
 ./cenario-2.sh
 ```
-Será imprimido no terminal as informaçõpes individuais dos pacotes e da média entre esses mesmos valores entre todos eles.
-Então serão mostrado informações para a análise como o tempo de execução e o número de alertas.
+Serão impressas no terminal as informações de cada log de execução e da média entre esses mesmos valores entre todos eles.
+
 
 ### Rodando scripts para a avaliação dos logs dos chunks:
 
@@ -221,5 +255,6 @@ Deve-se executar o script cenario-4.sh para avaliar o cenário 2:
 ```
 ./cenario-4.sh
 ```
-Será imprimido no terminal as informaçõpes individuais dos pacotes e da média entre esses mesmos valores entre todos eles.
-Então serão mostrado informações para a análise como o tempo de execução e o número de alertas.
+Serão impressas no terminal as informações de execução e da média entre esses mesmos valores entre todos os chunks ao longo de cada execução.
+
+Então será mostrado, na execução do script de cada cenário, informações importantes para a análise como o tempo de execução e o número de alertas.
