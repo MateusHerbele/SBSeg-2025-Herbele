@@ -14,6 +14,7 @@ Este trabalho propõe o MicroSec Traffic, uma abordagem para melhorar a eficiên
 * [Dependências](#dependencias)
 * [Instalação](#instalacao)
 * [Dataset](#dataset)
+* [Dataset processado](#dataset-processado)
 * [Experimento](#experimento) 
 * [LICENSE](#license)
 
@@ -124,7 +125,7 @@ sudo apt install wireshark
 ```
 
 
-## Acesso ao dataset
+## Dataset
 Não é possível disponibilizar o dataset original nesse repositório em razões de direitos dos criadores do dataset e questões de limitação de tamanho de arquivos do próprio GitHub. Em razão disso, as explicações seguintes ensinam como ter acesso.
 
 Para ter acesso ao dataset utilizado neste projeto é preciso acessar [CIC-IDS-2017](https://www.unb.ca/cic/datasets/ids-2017.html). Após acessar, toda informações sobre o dataset está apresentada no site, e para download é necessário ir ao final da página e clicar em "Download this dataset" e seguir as instruções até que seja liberado a página de download para "Wednesday-workingHours.pcap", que será o conjunto de dados usados no experimento.
