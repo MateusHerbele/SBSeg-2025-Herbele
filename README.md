@@ -100,3 +100,19 @@ Também é possível ter acesso ao dataset já processado pelos scripts em pytho
 ** Importante **
 Ambos os datasets devem estar de preferência na rota "SBSeg-2025-Herbele/datasets"
 
+## Experimento
+
+### Gerando o dataset cortado
+A primeira etapa é a geração do dataset processado pela estratégia de MicroSec Traffic, assim, com o ambiente python ativado deve-se executar:
+```
+python microsec.py
+```
+Após a execução do script, você deverá ter o pcap com um pacotes processados devidamente seguindo a estratégia.
+
+### Gerando os chunks
+```
+editcap -c 1000000 SBSeg-2025-Herbele/datasets/microsec/microsec.pcap SBSeg-2025-Herbele/datasets/microsec/chunks
+
+editcap -c 1000000 SBSeg-2025-Herbele/datasets/original/Wednesday-workingHours.pcap SBSeg-2025-Herbele/datasets/original/chunks
+```
+

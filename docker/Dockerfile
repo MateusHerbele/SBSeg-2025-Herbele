@@ -1,10 +1,10 @@
-# Image
+# Imagem base
 FROM ubuntu:24.04
 
-# Environment variables
+# Variáveis de ambiente
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install dependencies
+# Instalação de dependências
 RUN apt-get update && apt-get install -y \
     cmake \
     wget \
@@ -37,7 +37,12 @@ RUN apt-get update && apt-get install -y \
     nano \
     && apt-get clean
 
-# Build libdaq from source
+
+
+# Criar diretórios para datasets e regras
+RUN mkdir -p /usr/src/datasets/original/chunks /usr/src/datasets/microsec/chunks /usr/src/rules/original /usr/src/rules/microsec
+
+# Compilar o libdaq a partir do código-fonte
 WORKDIR /usr/src
 RUN git clone https://github.com/snort3/libdaq.git && \
     cd libdaq && \
@@ -46,7 +51,7 @@ RUN git clone https://github.com/snort3/libdaq.git && \
     make install && \
     cd
 
-# Build and install Snort 3
+# Compilar e instalar o Snort 3
 RUN git clone https://github.com/snort3/snort3.git && \
 cd snort3 && \
 ./configure_cmake.sh --prefix=/usr/local && \
@@ -55,10 +60,10 @@ make -j$(nproc) && \
 make install && \
 cd
 
-# Clean up
+# Limpeza
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Set up entrypoint
+# Definir entrypoint
 ENTRYPOINT ["/bin/bash"]
 
 # Snort -> Libdaq
