@@ -7,7 +7,8 @@ Este trabalho propõe o MicroSec Traffic, uma abordagem para melhorar a eficiên
 ## Estrutura do README.md
 
 * [Título do projeto](#microsec-traffic-utilizando-estrategias-de-engenharia-de-trafego-para-aprimoramento-da-eficiencia-de-sistemas-de-deteccao-de-intrusao)
-* [Estrutura do readme.md](#estrutura-do-readmemd) 
+* [Estrutura do readme.md](#estrutura-do-readmemd)
+* [Selos Considerados](#selos-considerados)
 * [Informações básicas](#informações-básicas)
     * [Hardware](#hardware)
     * [Software](#software)
@@ -15,7 +16,8 @@ Este trabalho propõe o MicroSec Traffic, uma abordagem para melhorar a eficiên
 * [Instalação](#instalacao)
 * [Dataset](#dataset)
 * [Dataset processado](#dataset-processado)
-* [Experimento](#experimento) 
+* [Teste mínimo](#teste-mínimo)
+* [Experimentos](#experimentos) 
 * [LICENSE](#license)
 
 ### Estrutura do repositório
@@ -47,8 +49,9 @@ SBSeg-2025-Herbele
     └── requirements.txt
 
 ```
+## Selos Considerados
 
-### Definição dos diretórios
+Selo D + Selo F + Selo S + Selo R
 
 ## Informações básicas
 
@@ -137,8 +140,9 @@ Também é possível ter acesso ao dataset já processado pelos scripts em pytho
 
 ** Importante **
 Ambos os datasets devem estar de preferência na rota "SBSeg-2025-Herbele/datasets"
+## Teste mínimo
 
-## Experimento
+## Experimentos
 
 ### Gerando o dataset cortado
 A primeira etapa é a geração do dataset processado pela estratégia de MicroSec Traffic, assim, com o ambiente python ativado deve-se ir até SBSeg-2025-Herbele/scripts e executar:
