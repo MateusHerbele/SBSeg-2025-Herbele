@@ -150,7 +150,7 @@ Ambos os datasets devem estar em suas rotas corretas:
    * Para o dataset processado: "SBSeg-2025-Herbele/datasets/microsec".
 ## Teste mínimo
 
-### Gerando o dataset cortado
+### Gerando o dataset processado
 A primeira etapa é a geração do dataset processado pela estratégia de MicroSec Traffic, assim, com o ambiente python ativado deve-se ir até SBSeg-2025-Herbele/scripts e executar:
 ```
 cd SBSeg-2025-Herbele/scripts
