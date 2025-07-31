@@ -145,7 +145,9 @@ Para ter acesso ao dataset utilizado neste projeto é preciso acessar [CIC-IDS-2
 Também é possível ter acesso ao dataset já processado pelos scripts em python em [Download pcap processado](https://www.inf.ufpr.br/msh22/microsec.html).
 
 ** Importante **
-Ambos os datasets devem estar de preferência na rota "SBSeg-2025-Herbele/datasets"
+Ambos os datasets devem estar em suas rotas corretas:
+   Para o dataset original: "SBSeg-2025-Herbele/datasets/original";
+   Para o dataset processado: "SBSeg-2025-Herbele/datasets/microsec".
 ## Teste mínimo
 
 ### Gerando o dataset cortado
