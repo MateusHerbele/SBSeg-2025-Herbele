@@ -19,7 +19,7 @@ Este trabalho propõe o MicroSec Traffic, uma abordagem para melhorar a eficiên
 * [Dataset processado](#dataset-processado)
 * [Teste mínimo](#teste-mínimo)
 * [Experimentos](#experimentos)
-   * [Reivindicação #1](#reivindicações-#1)
+   * [Reivindicação #1](#reivindicações-1)
 * [LICENSE](#license)
 
 ### Estrutura do repositório
@@ -183,7 +183,7 @@ sudo docker cp SBSeg-2025-Herbele/rules/* snort-container:/usr/src/rules
 ```
 ## Experimentos
 
-### Reinvindicações #1
+### Reivindicações #1
 
 #### Entrando no contâiner
 ```
