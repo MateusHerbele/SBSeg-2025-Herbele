@@ -13,11 +13,13 @@ Este trabalho propõe o MicroSec Traffic, uma abordagem para melhorar a eficiên
     * [Hardware](#hardware)
     * [Software](#software)
 * [Dependências](#dependencias)
+* [Preocupações com segurança](#preocupacoes-com-seguranca)
 * [Instalação](#instalacao)
 * [Dataset](#dataset)
 * [Dataset processado](#dataset-processado)
 * [Teste mínimo](#teste-mínimo)
-* [Experimentos](#experimentos) 
+* [Experimentos](#experimentos)
+   * [Reivindicação #1](#reivindicações-1)
 * [LICENSE](#license)
 
 ### Estrutura do repositório
@@ -69,6 +71,10 @@ Selo D + Selo F + Selo S + Selo R
 ## Dependências
 
 A execução do sistema depende da utilização de ambiente python para a execução de Sripts relacionados aos cortes do pacote, e junto a isso é necessário executar o docker para ter acesso ao sistema de detecção de intrusão Snort.
+
+## Preocupações com segurança
+
+Não há.
 
 ## Instalação 
 
