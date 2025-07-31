@@ -19,7 +19,7 @@ Este trabalho propõe o MicroSec Traffic, uma abordagem para melhorar a eficiên
 * [Dataset processado](#dataset-processado)
 * [Teste mínimo](#teste-mínimo)
 * [Experimentos](#experimentos)
-   * [Reivindicação #1](#reivindicacoes-1)
+   * [Reivindicação #1](#reivindicacoes-#1)
 * [LICENSE](#license)
 
 ### Estrutura do repositório
