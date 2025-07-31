@@ -37,7 +37,7 @@ def process_packet(packet):
         print("Pacote não-HTTP - mantido apenas Ethernet+IP")
     
     # Agora, copiar o timestamp
-    new_packet.time = packet.time  # <-- Aqui também
+    new_packet.time = packet.time
     
     final_length = len(new_packet)
     print(f"Tamanho final: {final_length} bytes (redução de {original_length - final_length} bytes)")
@@ -90,6 +90,6 @@ def process_large_pcap(input_pcap, output_pcap, chunk_size=10000):
 
 
 # Configuração
-input_file = "../Wednesday-workingHours.pcap"
-output_file = "micro-sec-time.pcap"
+input_file = "../datasets/original/Wednesday-workingHours.pcap"
+output_file = "../datasets/microsec/microsec.pcap"
 process_large_pcap(input_file, output_file, chunk_size=10000)
