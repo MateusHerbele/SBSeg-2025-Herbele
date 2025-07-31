@@ -142,8 +142,6 @@ Também é possível ter acesso ao dataset já processado pelos scripts em pytho
 Ambos os datasets devem estar de preferência na rota "SBSeg-2025-Herbele/datasets"
 ## Teste mínimo
 
-## Experimentos
-
 ### Gerando o dataset cortado
 A primeira etapa é a geração do dataset processado pela estratégia de MicroSec Traffic, assim, com o ambiente python ativado deve-se ir até SBSeg-2025-Herbele/scripts e executar:
 ```
@@ -175,17 +173,20 @@ sudo docker cp SBSeg-2025-Herbele/datasets/original/* snort-container:/usr/src/d
 ```
 sudo docker cp SBSeg-2025-Herbele/rules/* snort-container:/usr/src/rules
 ```
+## Experimentos
 
-### Entrando no contâiner
+### Reinvindiações #1
+
+#### Entrando no contâiner
 ```
 sudo docker exec -it snort-container /bin/bash
 ```
 
-### Acessando o snort (estando dentro do contâiner)
+#### Acessando o snort (estando dentro do contâiner)
 ```
 cd /usr/src/snort3/lua
 ```
-### Executando o snort
+#### Executando o snort
 ```
 snort --daq pcap -R [rota para o arquivo de regras que serão usadas] -r [rota do pcap que será analisado] -A cmg > [rota para o log de saída]
 
@@ -198,29 +199,29 @@ Existem 4 cenários de execução:
 
 Devem ser feitas 10 execuções por cenário, para que seja possível avaliar a média e ter uma noção mais vasta da eficiência da técnica. Deve-se utilizar numerações de 0 a 9 para as execuções.
 
-### Executando o cenário 1:
+#### Executando o cenário 1:
 ```
 snort --daq pcap -R /usr/src/rules/original.rules -r /usr/src/datasets/original/Wednesday-workingHours.pcap -A cmg > /usr/src/logs/original-[número da execução].txt
 ```
 
-### Executando o cenário 2:
+#### Executando o cenário 2:
 ```
 snort --daq pcap -R /usr/src/rules/microsec.rules -r /usr/src/datasets/microsec/microsec.pcap -A cmg > /usr/src/logs/microsec-[número da execução].txt
 ```
 
-### Executando o cenário 3:
+#### Executando o cenário 3:
 ```
 snort --daq pcap -R /usr/src/rules/original.rules -r /usr/src/datasets/original/chunks/original-[numero do chunk].pcap -A cmg > /usr/src/logs/original/chunks/[número da execução]/original-[numero do chunk].txt
 [...]
 ```
 
-### Executando o cenário 4:
+#### Executando o cenário 4:
 ```
 snort --daq pcap -R /usr/src/rules/microsec.rules -r /usr/src/datasets/microsec/chunks/microsec-[numero do chunk].pcap -A cmg > /usr/src/logs/microsec/chunks/[número da execução]/microsec-[numero do chunk].txt
 [...]
 ```
 
-### Fazer uma cópia dos logs para fora do contâiner:
+#### Fazer uma cópia dos logs para fora do contâiner:
 Sair do contâiner com: 
     Ctrl + P + Q
 
@@ -230,7 +231,7 @@ docker cp snort-container:/usr/src/logs/microsec/* /SBSeg-2025-Herbele/logs/micr
 
 docker cp snort-container:/usr/src/logs/original/* /SBSeg-2025-Herbele/logs/original
 ```
-### Avaliando o resultado dos cenários 1 e 2:
+#### Avaliando o resultado dos cenários 1 e 2:
 Deve-se ir até o diretório scripts:
 ```
 cd /SBSeg-2025-Herbele/scripts
@@ -247,7 +248,7 @@ Deve-se executar o script cenario-2.sh para avaliar o cenário 2:
 Serão impressas no terminal as informações de cada log de execução e da média entre esses mesmos valores entre todos eles.
 
 
-### Rodando scripts para a avaliação dos logs dos chunks:
+#### Rodando scripts para a avaliação dos logs dos chunks:
 
 Deve-se ir até o diretório scripts:
 ```
@@ -269,3 +270,4 @@ Então será mostrado, na execução do script de cada cenário, informações i
 ## LICENSE
 
 GNU GPL v3
+
