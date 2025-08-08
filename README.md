@@ -102,7 +102,7 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 #### Navegue até o diretório 'docker' do projeto e execute:
 ```
 cd SBSeg-2025-Herbele/docker
-docker build -t snort3-docker .
+sudo docker build -t snort3-docker .
 ```
 
 ## Dataset
