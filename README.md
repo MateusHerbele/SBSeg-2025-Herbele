@@ -99,10 +99,10 @@ sudo apt update
 ```
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
-#### Navegue até o diretório 'docker' do projeto e execute:
+#### Navegue até o diretório raíz do projeto e execute:
 ```
-cd SBSeg-2025-Herbele/docker
-sudo docker build -t snort3-docker .
+cd SBSeg-2025-Herbele
+sudo docker build -t snort3-docker -f docker/Dockerfile .
 ```
 
 ## Dataset
