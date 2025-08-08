@@ -16,7 +16,7 @@ echo "=== Iniciando execuções dos cenários ==="
 for exec_num in {0..9}; do
     echo "Cenário 1 - Execução $exec_num"
     snort --daq pcap \
-        -R "$RULES_DIR/original.rules" \
+        -R "$RULES_DIR/original-pcap.rules" \
         -r "$DATASETS_DIR/original/Wednesday-workingHours.pcap" \
         -A cmg > "$LOGS_DIR/original/original-${exec_num}.txt"
 done
@@ -25,7 +25,7 @@ done
 for exec_num in {0..9}; do
     echo "Cenário 2 - Execução $exec_num"
     snort --daq pcap \
-        -R "$RULES_DIR/microsec.rules" \
+        -R "$RULES_DIR/microsec-pcap.rules" \
         -r "$DATASETS_DIR/microsec/microsec.pcap" \
         -A cmg > "$LOGS_DIR/microsec/microsec-${exec_num}.txt"
 done
