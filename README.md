@@ -185,7 +185,7 @@ cd /usr/src/scripts
 ```
 
 ### Resultados
-Na execução do script serão impressas as informações retiradas de cada log de cada cenário, e de suas respecitvas médias dentre todas as execuções. 
+Na execução do script serão impressas as informações retiradas de cada log de cada cenário e de suas respecitvas médias dentre todas as execuções. 
 
 ## LICENSE
 
