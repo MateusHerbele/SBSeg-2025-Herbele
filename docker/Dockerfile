@@ -66,15 +66,15 @@ RUN git clone https://github.com/snort3/snort3.git && \
     cd ..
 
 # Copiar scripts e regras do projeto
-COPY ../scripts /usr/src/scripts
-COPY ../rules /usr/src/rules
+COPY /scripts /usr/src/scripts
+COPY /rules /usr/src/rules
 
 # Copiar script de inicialização
 COPY init.sh /usr/src/init.sh
 RUN chmod +x /usr/src/init.sh
 
 # Copia o pcap de teste para dentro do container
-COPY ../teste-minimo/teste-microsec.pcap /teste-minimo/teste-microsec.pcap
+COPY /teste-minimo/teste-microsec.pcap /teste-minimo/teste-microsec.pcap
 
 
 # Limpeza
