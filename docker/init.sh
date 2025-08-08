@@ -34,7 +34,7 @@ echo "[INIT] Executando Snort com regras do MicroSec (teste mínimo)..."
 
 snort --daq pcap \
       -R /usr/src/rules/microsec-pcap.rules \
-      -r /teste-minimo/microsec/teste-microsec.pcap \
+      -r /teste-minimo/teste-microsec.pcap \
       -A cmg 
 
 echo "[INIT] Teste mínimo do MicroSec concluído."
