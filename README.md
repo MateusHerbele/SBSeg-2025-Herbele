@@ -139,12 +139,12 @@ docker run -d --name snort-container snort3-docker
 sudo docker exec -it snort-container /bin/bash
 ```
 ### Executando o script de teste mínimo
-Esse script é responsável por:
-    * Baixar o dataset original dentro do contâiner;
-    * Configurar e ativar o ambiente python;
-    * Executar o microsec.py no dataset original;
-    * Criar os chunks dos datasets;
-    * E por fim, executar um teste mínimo usando um chunk do pcap processado já disponibilizado no repositório.
+Esse script é responsável por:  
+    - Baixar o dataset original dentro do contâiner;  
+    - Configurar e ativar o ambiente python;  
+    - Executar o microsec.py no dataset original;  
+    - Criar os chunks dos datasets;  
+    - E por fim, executar um teste mínimo usando um chunk do pcap processado já disponibilizado no repositório.  
 
 O teste mínimo irá executar o Snort utilizando as regras estipuladas para o pacote processado no chunk determinado.
 ```
