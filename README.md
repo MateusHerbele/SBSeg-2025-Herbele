@@ -138,7 +138,14 @@ sudo docker run -d --name snort-container snort3-docker
 ```
 sudo docker exec -it snort-container /bin/bash
 ```
-### Executando o script de teste mínimo
+### Executando apenas o script de teste mínimo
+Nesse teste, serão utilizadas as regras desenvolvidas para gerar alerta com os ataques presentes no dataset, porém com uma porção pequena do pcap já processado. Assim, é possível avaliar em pouco tempo o funcionamento do Snort com o tráfego processado e as regras específicas.
+```
+cd /teste-minimo
+./min-teste.sh
+```
+
+### Executando o script de configuração básica do experimento
 Esse script é responsável por:  
     - Baixar o dataset original dentro do contâiner;  
     - Configurar e ativar o ambiente python;  
