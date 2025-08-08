@@ -131,7 +131,7 @@ tar -zxvf microsec.tar.gz
 
 ### Rodando o container
 ```
-docker run -d --name snort-container snort3-docker
+sudo docker run -d --name snort-container snort3-docker
 ```
 
 #### Entrando no contâiner
