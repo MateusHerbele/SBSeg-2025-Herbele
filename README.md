@@ -26,29 +26,25 @@ Este trabalho propõe o MicroSec Traffic, uma abordagem para melhorar a eficiên
 
 ```bash
 SBSeg-2025-Herbele
-├── datasets
-│   ├── microsec
-│   │   └── chunks
-│   └── original
-│       └── chunks
 ├── docker
-│   └── Dockerfile
-├── logs
-│   ├── microsec
-│   │   └── chunks
-│   └── original
-│       └── chunks
+│   ├── Dockerfile
+│   └── init.sh
+├── Guia_do_usuário_MicroSec.pdf
+├── LICENSE
 ├── README.md
 ├── rules
 │   ├── microsec-pcap.rules
 │   └── original-pcap.rules
-└── scripts
-    ├── cenario-1.sh
-    ├── cenario-2.sh
-    ├── cenario-3.sh
-    ├── cenario-4.sh
-    ├── micro-sec.py
-    └── requirements.txt
+├── scripts
+│   ├── cenario-1.sh
+│   ├── cenario-2.sh
+│   ├── cenario-3.sh
+│   ├── cenario-4.sh
+│   ├── microsec.py
+│   ├── requirements.txt
+│   └── roda-cenarios.sh
+└── teste-minimo
+    └── teste-microsec.pcap
 
 ```
 ## Selos Considerados
@@ -109,78 +105,53 @@ cd SBSeg-2025-Herbele/docker
 docker build -t snort3-docker .
 ```
 
-
-### Python 
-
-#### Instalando Python
-```
-sudo apt install python3.12
-```
-#### Criando o ambiente python
-```
-python -m venv "nome do ambiente"
-```
-#### Ativando o ambiente criado
-```
-source "nome do ambiente"/bin/activate
-```
-#### Navegue até o diretório 'scripts' do projeto e instale os requisitos:
-```
-cd SBSeg-2025-Herbele/scripts
-pip install -r requirements.txt
-```
-### Editcap
-Será importante para a geração dos chunks dos datasets.
-```
-sudo apt install wireshark
-```
-
-
 ## Dataset
-Não é possível disponibilizar o dataset original nesse repositório em razões de direitos dos criadores do dataset e questões de limitação de tamanho de arquivos do próprio GitHub. Em razão disso, as explicações seguintes ensinam como ter acesso.
+Não é possível disponibilizar o dataset original nesse repositório por questões de limitação de tamanho de arquivos do próprio GitHub. Em razão disso, as explicações seguintes ensinam como ter acesso.
 
 Para ter acesso ao dataset utilizado neste projeto é preciso acessar [CIC-IDS-2017](https://www.unb.ca/cic/datasets/ids-2017.html). Após acessar, toda informações sobre o dataset está apresentada no site, e para download é necessário ir ao final da página e clicar em "Download this dataset" e seguir as instruções até que seja liberado a página de download para "Wednesday-workingHours.pcap", que será o conjunto de dados usados no experimento.
+
+Também é possível baixar diretamente via terminal por:
+```
+wget http://cicresearch.ca/CICDataset/CIC-IDS-2017/Dataset/CIC-IDS-2017/PCAPs/Wednesday-workingHours.pcap
+```
 
 ## Dataset processado
 Também é possível ter acesso ao dataset já processado pelos scripts em python em [Download pcap processado](https://www.inf.ufpr.br/msh22/microsec.html).
 
-** Importante **
-Ambos os datasets devem estar em suas rotas corretas:
-   * Para o dataset original: "SBSeg-2025-Herbele/datasets/original";
-   * Para o dataset processado: "SBSeg-2025-Herbele/datasets/microsec".
+Que também pode ser possível baixar diretamente via terminal por:
+```
+wget https://www.inf.ufpr.br/msh22/dados/microsec.tar.gz
+```
+E descompatado com:
+```
+tar -zxvf microsec.tar.gz
+```
+
 ## Teste mínimo
-
-### Gerando o dataset processado
-A primeira etapa é a geração do dataset processado pela estratégia de MicroSec Traffic, assim, com o ambiente python ativado deve-se ir até SBSeg-2025-Herbele/scripts e executar:
-```
-cd SBSeg-2025-Herbele/scripts
-python microsec.py
-```
-Após a execução do script, você deverá ter o pcap com um pacotes processados devidamente seguindo a estratégia.
-
-### Gerando os chunks
-```
-editcap -c 1000000 SBSeg-2025-Herbele/datasets/microsec/microsec.pcap SBSeg-2025-Herbele/datasets/microsec/chunks/microsec-%d.pcap
-
-editcap -c 1000000 SBSeg-2025-Herbele/datasets/original/Wednesday-workingHours.pcap SBSeg-2025-Herbele/datasets/original/chunks/original-%d.pcap
-```
 
 ### Rodando o container
 ```
 docker run -d --name snort-container snort3-docker
 ```
 
-### Enviando para o contâiner os dados necessários
+#### Entrando no contâiner
 ```
-sudo docker cp SBSeg-2025-Herbele/datasets/microsec/* snort-container:/usr/src/datasets/microsec/
+sudo docker exec -it snort-container /bin/bash
+```
+### Executando o script de teste mínimo
+Esse script é responsável por:
+    * Baixar o dataset original dentro do contâiner;
+    * Configurar e ativar o ambiente python;
+    * Executar o microsec.py no dataset original;
+    * Criar os chunks dos datasets;
+    * E por fim, executar um teste mínimo usando um chunk do pcap processado já disponibilizado no repositório.
 
-sudo docker cp SBSeg-2025-Herbele/datasets/original/* snort-container:/usr/src/datasets/original/
+O teste mínimo irá executar o Snort utilizando as regras estipuladas para o pacote processado no chunk determinado.
+```
+cd /usr/src/init.sh
+./init.sh
 ```
 
-### Enviando para o contâiner as regras
-```
-sudo docker cp SBSeg-2025-Herbele/rules/* snort-container:/usr/src/rules
-```
 ## Experimentos
 
 ### Reivindicações #1
@@ -197,7 +168,6 @@ cd /usr/src/snort3/lua
 #### Executando o snort
 ```
 snort --daq pcap -R [rota para o arquivo de regras que serão usadas] -r [rota do pcap que será analisado] -A cmg > [rota para o log de saída]
-
 ```
 Existem 4 cenários de execução:
     1. Executar o snort com as regras específicas para o pcap original junto do mesmo;
@@ -205,75 +175,17 @@ Existem 4 cenários de execução:
     3. Executar o snort com as regras específicas para o pcap original para cada chunk gerado a partir do pcap original;
     4. Executar o snort com as regras específicas para o pcap processado pelo microsec para cada chunk gerado a partir do pcap processado pelo microsec.
 
-Devem ser feitas 10 execuções por cenário, para que seja possível avaliar a média e ter uma noção mais vasta da eficiência da técnica. Deve-se utilizar numerações de 0 a 9 para as execuções.
+Devem ser feitas 10 execuções por cenário, para que seja possível avaliar a média e ter uma noção mais vasta da eficiência da técnica.
 
-#### Executando o cenário 1:
+### Script para a execução dos cenários
+Para a execução dos cenários de forma automatizada deve-se utilizar o script roda-cenarios.sh, localizado em /usr/src/scripts. O scirpt irá executar o snort no modo adequado, comentando anteriormente, para a geração dos logs, que possibilite posteriormente, no mesmo script, a execução de cada cenário, que são arquivos de script bash individuais
 ```
-snort --daq pcap -R /usr/src/rules/original.rules -r /usr/src/datasets/original/Wednesday-workingHours.pcap -A cmg > /usr/src/logs/original-[número da execução].txt
-```
-
-#### Executando o cenário 2:
-```
-snort --daq pcap -R /usr/src/rules/microsec.rules -r /usr/src/datasets/microsec/microsec.pcap -A cmg > /usr/src/logs/microsec-[número da execução].txt
+cd /usr/src/scripts
+./roda-cenarios.sh
 ```
 
-#### Executando o cenário 3:
-```
-snort --daq pcap -R /usr/src/rules/original.rules -r /usr/src/datasets/original/chunks/original-[numero do chunk].pcap -A cmg > /usr/src/logs/original/chunks/[número da execução]/original-[numero do chunk].txt
-[...]
-```
-
-#### Executando o cenário 4:
-```
-snort --daq pcap -R /usr/src/rules/microsec.rules -r /usr/src/datasets/microsec/chunks/microsec-[numero do chunk].pcap -A cmg > /usr/src/logs/microsec/chunks/[número da execução]/microsec-[numero do chunk].txt
-[...]
-```
-
-#### Fazer uma cópia dos logs para fora do contâiner:
-Sair do contâiner com: 
-    Ctrl + P + Q
-
-Voltando para a máquina host, deve ser executado:
-```
-docker cp snort-container:/usr/src/logs/microsec/* /SBSeg-2025-Herbele/logs/microsec
-
-docker cp snort-container:/usr/src/logs/original/* /SBSeg-2025-Herbele/logs/original
-```
-#### Avaliando o resultado dos cenários 1 e 2:
-Deve-se ir até o diretório scripts:
-```
-cd /SBSeg-2025-Herbele/scripts
-```
-
-Deve-se executar o script cenario-1.sh para avaliar o cenário 1:
-```
-./cenario-1.sh
-```
-Deve-se executar o script cenario-2.sh para avaliar o cenário 2:
-```
-./cenario-2.sh
-```
-Serão impressas no terminal as informações de cada log de execução e da média entre esses mesmos valores entre todos eles.
-
-
-#### Rodando scripts para a avaliação dos logs dos chunks:
-
-Deve-se ir até o diretório scripts:
-```
-cd /SBSeg-2025-Herbele/scripts
-```
-
-Deve-se executar o script cenario-3.sh para avaliar o cenário 1:
-```
-./cenario-3.sh
-```
-Deve-se executar o script cenario-4.sh para avaliar o cenário 2:
-```
-./cenario-4.sh
-```
-Serão impressas no terminal as informações de execução e da média entre esses mesmos valores entre todos os chunks ao longo de cada execução.
-
-Então será mostrado, na execução do script de cada cenário, informações importantes para a análise como o tempo de execução e o número de alertas.
+### Resultados
+Na execução do script serão impressas as informações retiradas de cada log de cada cenário, e de suas respecitvas médias dentre todas as execuções. 
 
 ## LICENSE
 

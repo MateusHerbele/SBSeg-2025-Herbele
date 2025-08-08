@@ -3,8 +3,9 @@ FROM ubuntu:24.04
 
 # Variáveis de ambiente
 ENV DEBIAN_FRONTEND=noninteractive
+ENV LD_LIBRARY_PATH=/usr/local/lib
 
-# Instalação de dependências
+# Instalação de dependências do Snort + Python + Editcap
 RUN apt-get update && apt-get install -y \
     cmake \
     wget \
@@ -35,35 +36,49 @@ RUN apt-get update && apt-get install -y \
     tcpreplay \
     libpcre2-dev \
     nano \
+    wireshark-common \
+    python3.12 python3.12-venv python3-pip \
     && apt-get clean
 
+# Criar diretórios
+RUN mkdir -p /usr/src/datasets/original/chunks \
+    /usr/src/datasets/microsec/chunks \
+    /usr/src/rules \
+    /usr/src/logs/microsec/chunks \
+    /usr/src/logs/original/chunks
 
-
-# Criar diretórios para datasets e regras
-RUN mkdir -p /usr/src/datasets/original/chunks /usr/src/datasets/microsec/chunks /usr/src/rules/ /usr/src/logs/microsec/chunks /usr/src/logs/original/chunks 
-# Compilar o libdaq a partir do código-fonte
+# Compilar o libdaq
 WORKDIR /usr/src
 RUN git clone https://github.com/snort3/libdaq.git && \
     cd libdaq && \
     ./bootstrap && \
     ./configure && \
     make install && \
-    cd
+    cd ..
 
 # Compilar e instalar o Snort 3
 RUN git clone https://github.com/snort3/snort3.git && \
-cd snort3 && \
-./configure_cmake.sh --prefix=/usr/local && \
-cd build && \
-make -j$(nproc) && \
-make install && \
-cd
+    cd snort3 && \
+    ./configure_cmake.sh --prefix=/usr/local && \
+    cd build && \
+    make -j$(nproc) && \
+    make install && \
+    cd ..
+
+# Copiar scripts e regras do projeto
+COPY ../scripts /usr/src/scripts
+COPY ../rules /usr/src/rules
+
+# Copiar script de inicialização
+COPY init.sh /usr/src/init.sh
+RUN chmod +x /usr/src/init.sh
+
+# Copia o pcap de teste para dentro do container
+COPY ../teste-minimo/teste-microsec.pcap /teste-minimo/teste-microsec.pcap
+
 
 # Limpeza
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Definir entrypoint
-ENTRYPOINT ["/bin/bash"]
-
-# Snort -> Libdaq
-ENV LD_LIBRARY_PATH=/usr/local/lib
+# Entrypoint: prepara ambiente e abre bash
+ENTRYPOINT ["/usr/src/init.sh"]
