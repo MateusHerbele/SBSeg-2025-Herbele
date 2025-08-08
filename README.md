@@ -148,7 +148,7 @@ Esse script é responsável por:
 
 O teste mínimo irá executar o Snort utilizando as regras estipuladas para o pacote processado no chunk determinado.
 ```
-cd /usr/src/init.sh
+cd /usr/src
 ./init.sh
 ```
 
