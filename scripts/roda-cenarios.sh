@@ -38,7 +38,7 @@ for exec_num in {0..9}; do
     for chunk_path in "${chunk_files[@]}"; do
         chunk_name=$(basename "$chunk_path" .pcap)
         snort --daq pcap \
-            -R "$RULES_DIR/original.rules" \
+            -R "$RULES_DIR/original-pcap.rules" \
             -r "$chunk_path" \
             -A cmg > "$LOGS_DIR/original/chunks/$exec_num/${chunk_name}.txt"
     done
@@ -52,7 +52,7 @@ for exec_num in {0..9}; do
     for chunk_path in "${chunk_files[@]}"; do
         chunk_name=$(basename "$chunk_path" .pcap)
         snort --daq pcap \
-            -R "$RULES_DIR/microsec.rules" \
+            -R "$RULES_DIR/microsec-pcap.rules" \
             -r "$chunk_path" \
             -A cmg > "$LOGS_DIR/microsec/chunks/$exec_num/${chunk_name}.txt"
     done
