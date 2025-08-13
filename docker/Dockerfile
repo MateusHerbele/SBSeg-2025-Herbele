@@ -73,7 +73,7 @@ COPY /rules /usr/src/rules
 COPY /docker/init.sh /usr/src/init.sh
 
 # Copia o pcap de teste e o script respectivo para dentro do container
-COPY /teste-minimo /teste-minimo/teste-microsec.pcap
+COPY /teste-minimo /teste-minimo
 
 
 # Limpeza
