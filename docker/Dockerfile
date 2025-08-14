@@ -37,6 +37,7 @@ RUN apt-get update && apt-get install -y \
     libpcre2-dev \
     nano \
     wireshark-common \
+    bc \
     python3.12 python3.12-venv python3-pip \
     && apt-get clean
 
