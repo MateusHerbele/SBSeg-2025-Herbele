@@ -141,7 +141,7 @@ sudo docker exec -it snort-container /bin/bash
 ### Executando apenas o script de teste mínimo
 Nesse teste, serão utilizadas as regras desenvolvidas para gerar alerta com os ataques presentes no dataset, porém com uma porção pequena do pcap já processado. Assim, é possível avaliar em pouco tempo o funcionamento do Snort com o tráfego processado e as regras específicas.
 ```
-cd /teste-minimo
+cd /usr/src/teste-minimo
 ./min-teste.sh
 ```
 O teste mínimo irá executar o Snort utilizando as regras estipuladas para o pacote processado no chunk determinado.
@@ -173,7 +173,7 @@ cd /usr/src/scripts
 #### Entrando no contâiner
 ```
 sudo docker exec -it snort-container /bin/bash
-```
+```   
 
 #### Acessando o snort (estando dentro do contâiner)
 ```
