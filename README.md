@@ -144,19 +144,26 @@ Nesse teste, serão utilizadas as regras desenvolvidas para gerar alerta com os 
 cd /teste-minimo
 ./min-teste.sh
 ```
-
-### Executando o script de configuração básica do experimento
-Esse script é responsável por:  
-    - Baixar o dataset original dentro do contâiner;  
-    - Configurar e ativar o ambiente python;  
-    - Executar o microsec.py no dataset original;  
-    - Criar os chunks dos datasets;  
-    - E por fim, executar um teste mínimo usando um chunk do pcap processado já disponibilizado no repositório.  
-
 O teste mínimo irá executar o Snort utilizando as regras estipuladas para o pacote processado no chunk determinado.
+
+### Executando o script de configuração essencial do experimento
+Esse script é responsável por:  
+    - Baixar o dataset original e o dataset processado (MicroSec) dentro do contâiner;    
+    - Criar os chunks dos datasets;  
+    
 ```
 cd /usr/src
 ./init.sh
+```
+Adendo: Em razão do tamanho do PCAP original (12.5 Gb), e da velocidade de download, pode haver um tempo de espera de até 1 hora.
+
+### Executando o MicroSec com o PCAP original:
+Foi disponibilizado o download do dataset já processado pela técnica, em razão de que, como esta simulação utiliza de ferramentas em Python, que não fazem parte da avaliação de desempenho ou de testes online, pode haver demora para o processamento completo, cerca de 4-7 horas. Caso não seja um tempo disponível, recomenda-se o download direto do pcap comprimido como descrito em seções anteriores e executado pelo script de init.sh.
+
+Mas para a criação própria do PCAP processado utilizando a técnica basta seguir dentro do contêiner a seguinte execução:
+```
+cd /usr/src/scripts
+./criar-pcap.sh
 ```
 
 ## Experimentos
