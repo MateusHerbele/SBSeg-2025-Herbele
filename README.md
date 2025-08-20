@@ -20,7 +20,10 @@ Este trabalho propõe o MicroSec Traffic, uma abordagem para melhorar a eficiên
 * [Teste mínimo](#teste-mínimo)
 * [Experimentos](#experimentos)
    * [Reivindicação #1](#reivindicações-1)
+* [Contato](#contato)
+* [Informações gerais](#informações-gerais)
 * [LICENSE](#license)
+
 
 ### Estrutura do repositório
 
@@ -72,6 +75,10 @@ A execução do sistema depende da utilização de ambiente python para a execu�
 
 Não há.
 
+### Explicações:
+O dataset original já está sendo estudado e avaliado desde 2017, e está disponível para download público o que permite auditação.
+O dataset processado é gerado através do script microsec.py, que está disponível nesse repositório, utilizando como entrada o dataset original, possiblitando a auditação.
+O ambiente do contêiner isola o experimento e dentro das reinvidicações a interação dos processos só ocorre dentro do mesmo.
 ## Instalação 
 
 ### Docker 
@@ -166,6 +173,21 @@ cd /usr/src/scripts
 ./criar-pcap.sh
 ```
 
+### Funcionamento do microsec.py
+Para utilizar o microsec.py sem o auxílio de outros scripts, deve se ativar o ambiente python com os devidos requisitos instalados através do script criar-ambiente.sh, seguindo os seguintes comandos dentro do contêiner:
+```
+cd /usr/src/scritps
+./criar-ambiete.sh
+```
+
+O microsec.py apresenta uma interface por linha de comandos que tem a seguinte estrutura principal:
+```
+python3 microsec.py <arquivo_pcap_de_entrada> <arquivo_pcap_de_saida> [--chunk_size <tamanho_do_bloco>]
+```
+O arquivo de entrada é o PCAP que será processado utilizando a técnica MicroSec;
+O arquivo de saída é o PCAP resultado do processo;
+E o opcional de chunk_size é para otimizar o tratamento de memória, no qual é possível limitar a quantidade de pacotes que são tratados por vez durante o processo. O valor padrão é de 10000.
+
 ## Experimentos
 
 ### Reivindicações #1
@@ -186,7 +208,7 @@ snort --daq pcap -R [rota para o arquivo de regras que serão usadas] -r [rota d
 
 Observação: As regras atribuídas para cada cenário não devem ser alteradas para que a replicação do experimento não seja comprometida!
 
-Existem mais de 500 regras por arquivo, apenas 4 delas, localizadas no começo do arquivo, estão ligadas diretamente com a geração de alertas para os tipos de ataques presente nos datasets, as outras 500 regras são regras de sobrecarga para simular um comportamento mais próximo ao real do Snort.
+Existem mais de 500 regras por rule file, apenas 4 dessas em cada arquivo são legítimas e estão ligadas diretamente com a geração de alertas para os tipos de ataques presente nos datasets. As outras 500 regras, são regras de sobrecarga para simular um comportamento mais próximo ao real do Snort, chamadas de regras dummy. As regras legítimas são respectivamente as primeiras regras presentes em cada arquivo.
 
 Existem 4 cenários de execução:
     1. Executar o snort com as regras específicas para o pcap original junto do mesmo;
@@ -211,6 +233,10 @@ Autor: Mateus dos Santos Herbele
 e-mail: msh22@inf.ufpr.br
 
 Estou disponível para responder todas as dúvidas sobre a pesquisa :)
+
+### Informações gerais:
+Link do repositório: https://github.com/MateusHerbele/SBSeg-2025-Herbele/tree/main
+Última data de atualização: 20/08/2025.
 
 ## LICENSE
 
