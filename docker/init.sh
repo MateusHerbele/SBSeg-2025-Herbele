@@ -12,7 +12,8 @@ echo "[2/4] Baixando dataset processado (Microsec)..."
 wget -O /usr/src/datasets/microsec/microsec.tar.gz \
     https://www.inf.ufpr.br/msh22/dados/microsec.tar.gz
 
-tar -xzvf /usr/src/datasets/microsec/microsec.tar.gz microsec.pcap
+tar -xzvf /usr/src/datasets/microsec/microsec.tar.gz /usr/src/datasets/microsec/microsec.pcap
+rm /usr/src/datasets/microsec/microsec.tar.gz
 
 echo "[3/4] Criando chunks..."
 # Original
