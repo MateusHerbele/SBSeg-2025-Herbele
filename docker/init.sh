@@ -9,7 +9,7 @@ wget -O /usr/src/datasets/original/Wednesday-workingHours.pcap \
 
 echo "[2/4] Baixando dataset processado (Microsec)..."
 # Dataset processado
-wget -O /usr/src/datasets/microsec/microsec.tar.gz \ 
+wget -O /usr/src/datasets/microsec/microsec.tar.gz \
     https://www.inf.ufpr.br/msh22/dados/microsec.tar.gz
     
 tar -xzvf /usr/src/datasets/microsec/microsec.tar.gz microsec.pcap
