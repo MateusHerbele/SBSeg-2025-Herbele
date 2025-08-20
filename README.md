@@ -201,6 +201,12 @@ cd /usr/src/scripts
 ### Resultados
 Na execução do script serão impressas as informações retiradas de cada log de cada cenário e de suas respecitvas médias dentre todas as execuções. 
 
+### Contato
+Autor: Mateus dos Santos Herbele
+e-mail: msh22@inf.ufpr.br
+
+Estou disponível para responder todas as dúvidas sobre a pesquisa :)
+
 ## LICENSE
 
 GNU GPL v3

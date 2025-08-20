@@ -22,7 +22,7 @@ sum_dummy=0
 
 # Processar cada arquivo
 for ((x=0; x<=9; x++)); do
-    file="../logs/original/original-$x.txt"
+    file="/usr/src/logs/original/original-$x.txt"
     echo -e "\n=== Arquivo: $file ==="
 
     # Métricas básicas

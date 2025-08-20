@@ -7,6 +7,6 @@ pip install -r /usr/src/scripts/requirements.txt
 
 echo "[2/3] Executando microsec.py..."
 cd /usr/src/scripts
-python microsec.py
+python microsec.py /usr/src/datasets/original/Wednesday-workingHours.pcap /usr/src/datasets/microsec/microsec.pcap
 
 echo "[3/3] Finalizado!"

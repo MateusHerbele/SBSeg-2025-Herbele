@@ -8,7 +8,7 @@ declare -A attack_names=(
     ["1000005"]="HULK"
 )
 
-base_dir="../logs/microsec/chunks"
+base_dir="/usr/src/logs/microsec/chunks"
 total_executions=10
 total_chunks=14
 
