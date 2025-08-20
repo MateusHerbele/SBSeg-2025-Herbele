@@ -186,7 +186,7 @@ python3 microsec.py <arquivo_pcap_de_entrada> <arquivo_pcap_de_saida> [--chunk_s
 ```
 O arquivo de entrada é o PCAP que será processado utilizando a técnica MicroSec;
 O arquivo de saída é o PCAP resultado do processo;
-E o opcional de chunk_size é para otimizar o tratamento de memória, no qual é possível limitar a quantidade de pacotes que são tratados por vez durante o processo. O valor padrão é de 10000.
+E o opcional de chunk_size (não confudir com o número de chunks gerados pelo editcap para a replicação do experimento!) para otimizar o tratamento de memória, no qual é possível limitar a quantidade de pacotes que são tratados por vez durante o processo. O valor padrão é de 10000. 
 
 ## Experimentos
 
