@@ -110,7 +110,7 @@ def main():
     )
     parser.add_argument("input_file", help="Arquivo PCAP de entrada")
     parser.add_argument("output_file", help="Arquivo PCAP de saída")
-    parser.add_argument("--chunk_size", type=int, default=10000, help="Número de pacotes a serem processados por vez (padrão: 10000)", default=10000)
+    parser.add_argument("--chunk_size", type=int, default=10000, help="Número de pacotes a serem processados por vez (padrão: 10000)")
 
     args = parser.parse_args()
     input_file = args.input_file
