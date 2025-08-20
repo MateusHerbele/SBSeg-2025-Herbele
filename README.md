@@ -170,14 +170,14 @@ Foi disponibilizado o download do dataset já processado pela técnica, em razã
 Mas para a criação própria do PCAP processado utilizando a técnica basta seguir dentro do contêiner a seguinte execução:
 ```
 cd /usr/src/scripts
-./criar-pcap.sh
+source criar-pcap.sh
 ```
 
 ### Funcionamento do microsec.py
 Para utilizar o microsec.py sem o auxílio de outros scripts, deve se ativar o ambiente python com os devidos requisitos instalados através do script criar-ambiente.sh, seguindo os seguintes comandos dentro do contêiner:
 ```
 cd /usr/src/scritps
-./criar-ambiete.sh
+source criar-ambiete.sh
 ```
 
 O microsec.py apresenta uma interface por linha de comandos que tem a seguinte estrutura principal:
