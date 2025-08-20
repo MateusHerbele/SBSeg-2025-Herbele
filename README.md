@@ -183,6 +183,11 @@ cd /usr/src/snort3/lua
 ```
 snort --daq pcap -R [rota para o arquivo de regras que serão usadas] -r [rota do pcap que será analisado] -A cmg > [rota para o log de saída]
 ```
+
+Observação: As regras atribuídas para cada cenário não devem ser alteradas para que a replicação do experimento não seja comprometida!
+
+Existem mais de 500 regras por arquivo, apenas 4 delas, localizadas no começo do arquivo, estão ligadas diretamente com a geração de alertas para os tipos de ataques presente nos datasets, as outras 500 regras são regras de sobrecarga para simular um comportamento mais próximo ao real do Snort.
+
 Existem 4 cenários de execução:
     1. Executar o snort com as regras específicas para o pcap original junto do mesmo;
     2. Executar o snort com as regras específicas para o pcap processado pelo microsec junto do mesmo;
